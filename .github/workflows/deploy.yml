@@ -59,8 +59,8 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
-        context: .
-        file: ./Dockerfile
+        context: ./frontend
+        file: ./frontend/Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/react-app:${{ github.sha }},${{ secrets.DOCKER_USERNAME }}/react-app:latest
         cache-from: type=gha
