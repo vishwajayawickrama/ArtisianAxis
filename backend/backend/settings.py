@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'collectionsApp',
     'rest_framework',
+    'storages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -132,3 +133,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Azure Blob Storage settings
+AZURE_ACCOUNT_NAME = "youraccountname"  # Replace with your Azure storage account name
+AZURE_ACCOUNT_KEY = "youraccountkey"    # Replace with your Azure storage account key
+AZURE_CONTAINER = "media"              # Replace with your container name
+AZURE_CUSTOM_DOMAIN = f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net"
+AZURE_URL = f"https://{AZURE_CUSTOM_DOMAIN}"
+
+# Configure Django to use Azure Storage for media files
+DEFAULT_FILE_STORAGE = "storages.backends.azure_storage.AzureStorage"
+MEDIA_URL = f"{AZURE_URL}/{AZURE_CONTAINER}/"
+AZURE_OVERWRITE_FILES = True  # Overwrite files with the same name
