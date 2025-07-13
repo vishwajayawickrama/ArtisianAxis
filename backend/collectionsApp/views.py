@@ -13,6 +13,10 @@ class CollectionList(APIView):
         return Response(serializer.data)
     
     def post(self, request):
+        image_obj = request.FILES.get('image')
+        name = request.POST.get('name')
+        if not image_obj or name:
+            return JsonRe
         serializer = CollectionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
