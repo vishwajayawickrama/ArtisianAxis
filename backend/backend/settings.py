@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import environ
+import os
+from dotenv import load_dotenv
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -136,9 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Azure Blob Storage settings
-AZURE_ACCOUNT_NAME = "youraccountname"  # Replace with your Azure storage account name
-AZURE_ACCOUNT_KEY = "youraccountkey"    # Replace with your Azure storage account key
-AZURE_CONTAINER = "media"              # Replace with your container name
+AZURE_ACCOUNT_NAME = "artisianaxis"  # Replace with your Azure storage account name
+AZURE_ACCOUNT_KEY = os.getenv("AZURE_ACCOUNT_KEY")   # Replace with your Azure storage account key
+AZURE_CONTAINER = "collections"              # Replace with your container name
 AZURE_CUSTOM_DOMAIN = f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net"
 AZURE_URL = f"https://{AZURE_CUSTOM_DOMAIN}"
 
