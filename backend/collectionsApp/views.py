@@ -4,8 +4,6 @@ from rest_framework import status
 from .models import Collection
 from .serializers import CollectionSerializer
 
-# Create your views here.
-
 class CollectionList(APIView):
     def get(self, request):
         collections = Collection.objects.all()
@@ -13,10 +11,6 @@ class CollectionList(APIView):
         return Response(serializer.data)
     
     def post(self, request):
-        image_obj = request.FILES.get('image')
-        name = request.POST.get('name')
-        if not image_obj or name:
-            return JsonResponse()
         serializer = CollectionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
