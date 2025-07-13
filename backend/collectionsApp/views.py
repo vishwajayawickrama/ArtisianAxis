@@ -16,7 +16,7 @@ class CollectionList(APIView):
         image_obj = request.FILES.get('image')
         name = request.POST.get('name')
         if not image_obj or name:
-            return JsonRe
+            return JsonResponse()
         serializer = CollectionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
