@@ -1,0 +1,3 @@
+dotenv
+azure-storage-blob
+djangorestframework
