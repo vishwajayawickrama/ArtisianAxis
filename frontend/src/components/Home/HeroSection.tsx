@@ -1,8 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star, Heart, Shield, Truck, Award, Globe, Users } from "lucide-react";
+import { Shield, Award, Globe} from "lucide-react";
 
 // Hero Section Component
 const HeroSection = () => (
@@ -68,3 +66,5 @@ const HeroSection = () => (
     </div>
   </section>
 );
+
+export default HeroSection;

@@ -1,8 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Star, Heart, Shield, Truck, Award, Globe, Users } from "lucide-react";
 
 // Featured Products Section
 const FeaturedProducts = () => {
@@ -77,11 +73,13 @@ const FeaturedProducts = () => {
           </Button>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((product, index) => (
+          {/* {products.map((product, index) => (
             <ProductCard key={index} product={product} index={index} />
-          ))}
+          ))} */}
         </div>
       </div>
     </section>
   );
 };
+
+export default FeaturedProducts;

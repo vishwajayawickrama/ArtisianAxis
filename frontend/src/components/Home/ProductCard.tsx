@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star, Heart, Shield, Truck, Award, Globe, Users } from "lucide-react";
+import { Star, Heart, Award, } from "lucide-react";
 
 // Define the product type
 interface Product {
@@ -17,11 +16,10 @@ interface Product {
 
 interface ProductCardProps {
   product: Product;
-  index: number;
 }
 
 // Product Card Component
-const ProductCard = ({ product, index }: ProductCardProps) => (
+const ProductCard = ({ product }: ProductCardProps) => (
   <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300">
     <CardContent className="p-0">
       <div className="relative aspect-square overflow-hidden rounded-t-lg">

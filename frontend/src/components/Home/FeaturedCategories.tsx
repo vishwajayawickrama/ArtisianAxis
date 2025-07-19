@@ -1,17 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Star, Heart, Shield, Truck, Award, Globe, Users } from "lucide-react";
 import  CategoryCard  from "./CategoryCard"
 
 // Featured Categories Section
 const FeaturedCategories = () => {
   const categories = [
-    { name: "Traditional Textiles", count: "1,200+ items", color: "from-purple-400 to-pink-400" },
-    { name: "Handcrafted Pottery", count: "800+ items", color: "from-blue-400 to-teal-400" },
-    { name: "Cultural Artifacts", count: "600+ items", color: "from-green-400 to-emerald-400" },
-    { name: "Traditional Jewelry", count: "900+ items", color: "from-yellow-400 to-orange-400" },
+    { name: "Traditional Textiles", count: 1200, color: "from-purple-400 to-pink-400" },
+    { name: "Handcrafted Pottery", count: 800, color: "from-blue-400 to-teal-400" },
+    { name: "Cultural Artifacts", count: 600, color: "from-green-400 to-emerald-400" },
+    { name: "Traditional Jewelry", count: 900, color: "from-yellow-400 to-orange-400" },
   ];
 
   return (
@@ -25,10 +20,12 @@ const FeaturedCategories = () => {
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((category, index) => (
-            <CategoryCard key={index} category={category} index={index} />
+            <CategoryCard key={index} category={category} />
           ))}
         </div>
       </div>
     </section>
   );
 };
+
+export default FeaturedCategories;
