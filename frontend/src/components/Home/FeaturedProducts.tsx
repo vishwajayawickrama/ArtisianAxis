@@ -2,63 +2,63 @@ import { Button } from "@/components/ui/button";
 
 // Featured Products Section
 const FeaturedProducts = () => {
-  const products = [
-    {
-      name: "Handwoven Kilim Rug",
-      price: "$299",
-      originalPrice: "$399",
-      rating: 4.8,
-      badge: "Bestseller",
-      color: "from-red-400 to-pink-400",
-    },
-    {
-      name: "Ceramic Vase - Ming Style",
-      price: "$189",
-      rating: 4.9,
-      badge: "Authentic",
-      color: "from-blue-400 to-indigo-400",
-    },
-    {
-      name: "Traditional Brass Lamp",
-      price: "$149",
-      originalPrice: "$199",
-      rating: 4.7,
-      color: "from-yellow-400 to-orange-400",
-    },
-    {
-      name: "Embroidered Silk Scarf",
-      price: "$89",
-      rating: 4.6,
-      badge: "New",
-      color: "from-purple-400 to-pink-400",
-    },
-    {
-      name: "Wooden Carved Mask",
-      price: "$129",
-      rating: 4.8,
-      color: "from-green-400 to-teal-400",
-    },
-    {
-      name: "Silver Filigree Jewelry",
-      price: "$249",
-      rating: 4.9,
-      badge: "Limited",
-      color: "from-gray-400 to-slate-400",
-    },
-    {
-      name: "Handmade Tapestry",
-      price: "$199",
-      originalPrice: "$279",
-      rating: 4.7,
-      color: "from-emerald-400 to-teal-400",
-    },
-    { 
-      name: "Cultural Art Print", 
-      price: "$59", 
-      rating: 4.5, 
-      color: "from-amber-400 to-orange-400" 
-    },
-  ];
+  // const products = [
+  //   {
+  //     name: "Handwoven Kilim Rug",
+  //     price: "$299",
+  //     originalPrice: "$399",
+  //     rating: 4.8,
+  //     badge: "Bestseller",
+  //     color: "from-red-400 to-pink-400",
+  //   },
+  //   {
+  //     name: "Ceramic Vase - Ming Style",
+  //     price: "$189",
+  //     rating: 4.9,
+  //     badge: "Authentic",
+  //     color: "from-blue-400 to-indigo-400",
+  //   },
+  //   {
+  //     name: "Traditional Brass Lamp",
+  //     price: "$149",
+  //     originalPrice: "$199",
+  //     rating: 4.7,
+  //     color: "from-yellow-400 to-orange-400",
+  //   },
+  //   {
+  //     name: "Embroidered Silk Scarf",
+  //     price: "$89",
+  //     rating: 4.6,
+  //     badge: "New",
+  //     color: "from-purple-400 to-pink-400",
+  //   },
+  //   {
+  //     name: "Wooden Carved Mask",
+  //     price: "$129",
+  //     rating: 4.8,
+  //     color: "from-green-400 to-teal-400",
+  //   },
+  //   {
+  //     name: "Silver Filigree Jewelry",
+  //     price: "$249",
+  //     rating: 4.9,
+  //     badge: "Limited",
+  //     color: "from-gray-400 to-slate-400",
+  //   },
+  //   {
+  //     name: "Handmade Tapestry",
+  //     price: "$199",
+  //     originalPrice: "$279",
+  //     rating: 4.7,
+  //     color: "from-emerald-400 to-teal-400",
+  //   },
+  //   { 
+  //     name: "Cultural Art Print", 
+  //     price: "$59", 
+  //     rating: 4.5, 
+  //     color: "from-amber-400 to-orange-400" 
+  //   },
+  // ];
 
   return (
     <section className="py-16 bg-gray-50">
