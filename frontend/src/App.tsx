@@ -4,6 +4,8 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminLayout from "./pages/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminCollections from "./pages/AdminCollections";
+import AdminProduct from './pages/AdminProduct';
+import AdminArtist from './pages/AdminArtist';
 import Test from "./pages/Test";
 import './index.css'
 
@@ -22,7 +24,8 @@ function App() {
               <Route path="login" element={<AdminLogin />} />
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="collections" element={<AdminCollections />} />
-              
+              <Route path="artists" element={<AdminArtist />} />
+              <Route path="products" element={<AdminProduct />} />
             </Routes>
           </AdminLayout>
         } />
