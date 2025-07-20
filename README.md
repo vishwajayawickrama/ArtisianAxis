@@ -42,8 +42,6 @@
 | **Frontend**  | React + Tailwind |
 | **Backend**   | Django REST API  |
 | **Database**  | PostgreSQL       |
-| **Hosting**   | Vercel (Frontend) + Custom Domain |
-| **Auth**      | JWT + Role-based Access Control |
 | **Payment**   | (Planned: Stripe or PayPal integration) |
 
 ---
@@ -52,7 +50,7 @@
 
 **Author**: Vishwa Jayawickrama  
 🌐 [Visit Project](https://artisianaxis.vishwajayawickrama.me/)  
-📮 Email: [your-email@example.com]
+📮 Email: [pmvishwajayawickrama@gmail.com]
 
 ---
 
