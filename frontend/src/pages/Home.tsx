@@ -3,12 +3,37 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, Heart, Shield, Truck, Award, Globe, Users } from "lucide-react";
+import { useEffect } from "react";
 
 export default function HomePage() {
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     console.log(`Navigate to: ${href}`);
   };
+
+  // Load the chatbot script
+  useEffect(() => {
+    // Check if script is already loaded
+    if (document.querySelector('script[src="https://excellychat-apim.azure-api.net/chatbot/excelly-messenger.js"]')) {
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://excellychat-apim.azure-api.net/chatbot/excelly-messenger.js';
+    script.async = true;
+    
+    // Add script to document head
+    document.head.appendChild(script);
+
+    // Cleanup function
+    return () => {
+      // Optional: Remove script on component unmount
+      const existingScript = document.querySelector('script[src="https://excellychat-apim.azure-api.net/chatbot/excelly-messenger.js"]');
+      if (existingScript) {
+        document.head.removeChild(existingScript);
+      }
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
@@ -471,6 +496,13 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* Chatbot */}
+      <div 
+        dangerouslySetInnerHTML={{
+          __html: '<excelly-messenger personaId="3981c678-2d70-4a4e-b75a-6fcc84487682"></excelly-messenger>'
+        }}
+      />
     </div>
   );
 }
