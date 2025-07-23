@@ -19,5 +19,7 @@ class CollectionList(APIView):
 
 
 class CollectionById(APIView):
-    def get(self, request):
-        collection = Collection.objects.get(id = 1)
+    def get(self, request, id):
+        collection = Collection.objects.get(id = id)
+        serializer = CollectionSerializer(collection)
+        return Response(serializer.data)
