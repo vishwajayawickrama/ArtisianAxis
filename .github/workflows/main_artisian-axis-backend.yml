@@ -26,12 +26,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run migrations and collectstatic
-        working-directory: ./backend
-        run: |
-          python manage.py migrate
-          python manage.py collectstatic --noinput
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
