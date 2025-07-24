@@ -3,51 +3,16 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Plus, Search, Edit, Trash2, Eye, Upload, Package } from "lucide-react"
+import { Plus, Search, Upload } from "lucide-react"
+import CollectionCards from "@/components/admin/collections/Collections"
 
 export default function CollectionsPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
   const [collectionImage, setCollectionImage] = useState<string>("")
-
-  const collections = [
-    {
-      id: 1,
-      name: "Traditional Textiles",
-      description: "Handwoven fabrics and textiles from around the world",
-      products: 245,
-      status: "Active",
-      image: "/placeholder.svg?height=100&width=100",
-    },
-    {
-      id: 2,
-      name: "Ancient Pottery",
-      description: "Traditional ceramic works and pottery pieces",
-      products: 156,
-      status: "Active",
-      image: "/placeholder.svg?height=100&width=100",
-    },
-    {
-      id: 3,
-      name: "Metalwork Masterpieces",
-      description: "Handcrafted metal artifacts and decorative pieces",
-      products: 89,
-      status: "Active",
-      image: "/placeholder.svg?height=100&width=100",
-    },
-    {
-      id: 4,
-      name: "Cultural Jewelry",
-      description: "Traditional jewelry from various cultures",
-      products: 134,
-      status: "Draft",
-      image: "/placeholder.svg?height=100&width=100",
-    },
-  ]
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -164,56 +129,8 @@ export default function CollectionsPage() {
           </div>
         
         {/* Collection Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            {/* Mapping Individual Cards */}
-            {collections.map((collection) => (
-              <Card key={collection.id} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-0">
-
-                {/* Main Image */}
-                  <div className="aspect-video overflow-hidden rounded-t-lg">
-                    <img
-                      src={collection.image || "/placeholder.svg"}
-                      alt={collection.name}
-                      width={300}
-                      height={200}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  {/* Other Content */}
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="font-semibold text-lg text-gray-900">{collection.name}</h3>
-                      <Badge variant={collection.status === "Active" ? "default" : "secondary"}>
-                        {collection.status}
-                      </Badge>
-                    </div>
-                    
-                    <p className="text-gray-600 text-sm mb-4">{collection.description}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center text-sm text-gray-500">
-                        <Package className="h-4 w-4 mr-1" />
-                        {collection.products} products
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Button variant="ghost" size="icon">
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+        <CollectionCards />
+          
         </CardContent>
       </Card>
     </div>
