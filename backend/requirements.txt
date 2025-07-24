@@ -21,3 +21,5 @@ django-cors-headers>=4.3.1
 
 # --- Optional: Pillow if handling image uploads ---
 Pillow>=10.3.0
+
+django-cors-headers

@@ -1,3 +1,14 @@
+import APIService from './APIService'
+
+class AdminSerivces extends APIService {
+    constructor() {
+        super();
+    }
+
+    async getCollections() {
+        return this.get('/collections/', {})
+    }
+}
 
 
-// sending create new collection 
+export default AdminSerivces;
