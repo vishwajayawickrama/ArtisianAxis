@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Edit, Trash2, Eye,  Package } from "lucide-react"
 import useCollections from "@/hooks/api/admin/useCollections"
 
-interface collection {
+export interface collection {
     id: string,
     name: string,
     description: string,
