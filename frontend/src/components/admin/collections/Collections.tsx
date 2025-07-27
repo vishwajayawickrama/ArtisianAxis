@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-//import { Badge } from "@/components/ui/badge"
 import { Edit, Trash2, Eye,  Package } from "lucide-react"
 import useCollections from "@/hooks/api/admin/useCollections"
+import { useDeleteCollection } from "@/hooks/api/admin/useDeleteCollection"
+
 
 export interface collection {
     id: string,
@@ -14,10 +15,20 @@ export interface collection {
 
 export default function CollectionCards() {
     const { data, isLoading, isError, error } = useCollections(); 
+    const deleteCollection = useDeleteCollection()
 
     if (isLoading) return <p>Loading collections...</p>;
     if (isError) return <p>Error: {(error as any).message}</p>;
     console.log(data)
+
+    const handleDelete = async (id: string) => {
+      try {
+            const result = await deleteCollection.mutateAsync(id)
+            console.log('Collection Deleted successfully:', result)
+        } catch (error: any) {
+            console.error('Failed to Delete collection:', error)
+        }
+    }
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -61,7 +72,7 @@ export default function CollectionCards() {
                         <Button variant="ghost" size="icon">
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon">
+                        <Button variant="ghost" size="icon" onClick={() => handleDelete(collection.id)}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>

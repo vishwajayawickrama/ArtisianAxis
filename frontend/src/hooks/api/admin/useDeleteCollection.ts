@@ -3,10 +3,10 @@ import AdminServices from '@/services/AdminServices';
 
 const adminService = new AdminServices();
 
-export const useCreateCollection = () => {
+export const useDeleteCollection = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (collection : any) => adminService.postCollection(collection),
+        mutationFn: (id : string) => adminService.deleteCollection(id),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['collections'] });
         }    

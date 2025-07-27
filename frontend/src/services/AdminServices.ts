@@ -13,6 +13,10 @@ class AdminSerivces extends APIService {
     async postCollection(collection : FormData) {
         return this.postFormWithFile('/collections/', collection)
     }
+
+    async deleteCollection(id : string) {
+        return this.delete(`/collections/${id}`)
+    }
 }
 
 
