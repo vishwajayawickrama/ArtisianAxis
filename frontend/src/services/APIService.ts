@@ -89,6 +89,19 @@ class BaseAPIService {
     }
   }
 
+  async postFormWithFile(endPoint: string, data: FormData) {
+    try {
+        const response = await this.apiClient.post(endPoint, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw this.handleError(error);
+    }
+}
+
   handleError(error: any) {
     if (error.response) {
       // Server responded with error status

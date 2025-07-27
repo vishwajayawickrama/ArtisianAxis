@@ -1,5 +1,5 @@
 import APIService from './APIService'
-import { type collection } from '../components/admin/collections/Collections'
+//import { type collection } from '../components/admin/collections/Collections'
 
 class AdminSerivces extends APIService {
     constructor() {
@@ -10,8 +10,8 @@ class AdminSerivces extends APIService {
         return this.get('/collections/', {})
     }
 
-    async postCollection(collection : collection) {
-        return this.post('/collections/', collection)
+    async postCollection(collection : FormData) {
+        return this.postFormWithFile('/collections/', collection)
     }
 }
 
