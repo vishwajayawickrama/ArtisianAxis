@@ -12,15 +12,6 @@ export default function NewCollectionDialog() {
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
     const [collectionImage, setCollectionImage] = useState<string>("")
 
-    const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0]
-        if (file) {
-        const imageUrl = URL.createObjectURL(file)
-        setCollectionImage(imageUrl)
-        console.log(imageUrl)
-        }
-    }
-
     // TODO: Handle Form Submit
     const handleSubmit = (event: any) => {
         event.preventDefault()
