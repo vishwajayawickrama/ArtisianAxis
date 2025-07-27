@@ -1,4 +1,5 @@
 import APIService from './APIService'
+//import { type collection } from '../components/admin/collections/Collections'
 
 class AdminSerivces extends APIService {
     constructor() {
@@ -7,6 +8,14 @@ class AdminSerivces extends APIService {
 
     async getCollections() {
         return this.get('/collections/', {})
+    }
+
+    async postCollection(collection : FormData) {
+        return this.postFormWithFile('/collections/', collection)
+    }
+
+    async deleteCollection(id : string) {
+        return this.delete(`/collections/${id}`)
     }
 }
 
