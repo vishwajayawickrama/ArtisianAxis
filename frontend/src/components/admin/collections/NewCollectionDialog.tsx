@@ -167,7 +167,7 @@ export default function NewCollectionDialog() {
                     <Button 
                         type="submit" 
                         form="collection-form"
-                        className="bg-orange-700 hover:bg-artisan-rust-light"
+                        className="bg-orange-700 hover:bg-orange-600"
                         disabled={createCollection.isPending}
                     >
                         {createCollection.isPending ? 'Creating...' : 'Create Collection'}
