@@ -99,7 +99,7 @@ export default function CollectionCards({ searchTerm }: CollectionCardsProps) {
                   <Package className="h-4 w-4 mr-1" />
                   {collection.products} products
                 </div>
-                {/* TODO: Implemet Edit Collections */}
+                {/* TODO: Implement Edit Collections */}
                 <div className="flex items-center space-x-2">
                   {/* <Button variant="ghost" size="icon">
                     <Eye className="h-4 w-4" />
