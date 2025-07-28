@@ -12,7 +12,7 @@ export default function CollectionsPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <div className="mt-4 ml-3 mr-3">
+        <div className="mt-4 mx-3">
           <h1 className="text-3xl  font-bold text-gray-900">Collections</h1>
           <p className="text-gray-600">Organize products into curated collections</p>
         </div>
