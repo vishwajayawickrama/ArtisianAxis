@@ -106,14 +106,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <header className="bg-white shadow-sm border-b h-16 flex items-center justify-between px-6">
-          <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setSidebarOpen(true)}>
-            <Menu className="h-5 w-5" />
-          </Button>
-          <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-600">Welcome back, Admin</span>
-          </div>
-        </header>
 
         {/* Page content */}
         <main className="flex-1 overflow-auto p-6">{children}</main>

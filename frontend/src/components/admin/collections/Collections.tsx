@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Edit, Trash2, Eye, Package } from "lucide-react"
+import { Trash2, Package } from "lucide-react"
 import useCollections from "@/hooks/api/admin/useCollections"
 import { useDeleteCollection } from "@/hooks/api/admin/useDeleteCollection"
 import DeleteConfirmation from "@/components/DeleteConfirmation"
-import { useState } from "react"
+import { useState, useMemo } from "react"
 
 export interface Collection {
   id: string,
@@ -14,12 +14,30 @@ export interface Collection {
   image: string
 }
 
-export default function CollectionCards() {
+interface CollectionCardsProps {
+  searchTerm: string;
+}
+
+export default function CollectionCards({ searchTerm }: CollectionCardsProps) {
   const { data, isLoading, isError, error } = useCollections();
   const [deleteConfirmation, setDeleteConfirmation] = useState<boolean>(false);
   const [selectedCollectionId, setSelectedCollectionId] = useState<string>("");
   const [selectedCollectionName, setSelectedCollectionName] = useState<string>("");
   const deleteCollection = useDeleteCollection();
+
+  const filteredCollections = useMemo(() => {
+    if (!data) return [];
+    
+    if (!searchTerm.trim()) {
+      return data;
+    }
+
+    const lowercaseSearchTerm = searchTerm.toLowerCase().trim();
+    
+    return data.filter((collection: Collection) => 
+      collection.name.toLowerCase().includes(lowercaseSearchTerm) || collection.description.toLowerCase().includes(lowercaseSearchTerm)
+    );
+  }, [data, searchTerm]);
 
   if (isLoading) return <p>Loading collections...</p>;
   if (isError) return <p>Error: {(error as any).message}</p>;
@@ -42,7 +60,7 @@ export default function CollectionCards() {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       <DeleteConfirmation 
         open={deleteConfirmation} 
         onConfirm={handleDelete} 
@@ -54,7 +72,7 @@ export default function CollectionCards() {
       />
 
       {/* Mapping Individual Cards */}
-      {data?.map((collection: Collection) => (
+      {filteredCollections?.map((collection: Collection) => (
         <Card key={collection.id} className="hover:shadow-lg transition-shadow">
           <CardContent className="p-0">
             {/* Main Image */}
@@ -81,13 +99,14 @@ export default function CollectionCards() {
                   <Package className="h-4 w-4 mr-1" />
                   {collection.products} products
                 </div>
+                {/* TODO: Implemet Edit Collections */}
                 <div className="flex items-center space-x-2">
-                  <Button variant="ghost" size="icon">
+                  {/* <Button variant="ghost" size="icon">
                     <Eye className="h-4 w-4" />
                   </Button>
                   <Button variant="ghost" size="icon">
                     <Edit className="h-4 w-4" />
-                  </Button>
+                  </Button> */}
                   <Button 
                     variant="ghost" 
                     size="icon" 
