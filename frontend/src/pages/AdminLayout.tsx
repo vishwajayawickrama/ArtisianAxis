@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import {
-  LayoutDashboard,
-  Package,
-  Users,
-  Palette,
-  ShoppingCart,
-  Settings,
-  BarChart3,
-  LogOut,
-  Menu,
-  X,
-} from "lucide-react"
+import { LayoutDashboard, Package, Users, Palette, ShoppingCart, Settings, BarChart3, LogOut, X, } from "lucide-react"
 
 const navigation = [
   { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
