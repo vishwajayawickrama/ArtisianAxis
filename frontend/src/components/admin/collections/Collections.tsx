@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Trash2, Package } from "lucide-react"
-import useCollections from "@/hooks/api/admin/useCollections"
+import { useCollections } from "@/hooks/api/admin/useCollections"
 import { useDeleteCollection } from "@/hooks/api/admin/useDeleteCollection"
 import DeleteConfirmation from "@/components/DeleteConfirmation"
 import { useState, useMemo } from "react"

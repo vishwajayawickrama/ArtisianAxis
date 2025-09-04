@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Collection
 from .serializers import CollectionSerializer
+from products.serializers import ProductSerializer
+from products.models import Product
 from django.shortcuts import get_object_or_404
 
 class CollectionList(APIView):
@@ -23,7 +25,9 @@ class CollectionList(APIView):
 class CollectionById(APIView):
     def get(self, request, id):
         collection = Collection.objects.get(id = id)
+        print(collection)
         serializer = CollectionSerializer(collection)
+        print(serializer.data)
         return Response(serializer.data)
     
     def put(self, request, id):
@@ -38,3 +42,9 @@ class CollectionById(APIView):
         collection = get_object_or_404(Collection, id=id)
         collection.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class CollectionProductsById(APIView):
+    def get(self, request, id):
+        products = Product.objects.filter(collection=id)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)

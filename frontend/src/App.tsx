@@ -9,6 +9,7 @@ import AdminArtist from './pages/AdminArtist';
 import Test from "./pages/Test";
 import './index.css'
 import Collections from "./pages/Collections";
+import CollectionProducts from "./pages/CollectionProducts";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
 
         {/* Normal Routes */}
         <Route path="/collections" element={<Collections />} />
+        <Route path="/collections/:id" element={<CollectionProducts />} />
       </Routes>
     </Router>
   )

@@ -11,6 +11,10 @@ class AdminSerivces extends APIService {
         return this.get('/collections/', {})
     }
 
+    async getCollection(id: string) {
+        return this.get(`/collections/${id}/`, {})
+    }
+
     async postCollection(collection : FormData) {
         return this.postFormWithFile('/collections/', collection)
     }

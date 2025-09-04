@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Search, Filter, Package, MapPin, Calendar, ArrowRight, Heart, Eye, Loader2, AlertTriangle } from "lucide-react"
-import useCollections from "@/hooks/api/admin/useCollections"
+import { useCollections } from "@/hooks/api/admin/useCollections"
 
 export default function CollectionsPage() {
   const { data, isLoading, isError, error } = useCollections()
@@ -123,52 +123,56 @@ export default function CollectionsPage() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
               {featuredCollections.slice(0, 4).map((collection: any) => (
-                <Card
-                  key={collection.id}
-                  className="group cursor-pointer hover:shadow-xl transition-all duration-300 overflow-hidden"
-                >
-                  <CardContent className="p-0">
-                    <div className="relative aspect-[3/2] overflow-hidden">
-                      <img
-                        src={collection.image || "/placeholder.svg"}
-                        alt={collection.name}
-                        width={600}
-                        height={400}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 bg-artisan-amber/10"
-                        style={{ backgroundColor: '#FFF7ED' }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                      <div className="absolute top-4 left-4">
-                        <Badge className="bg-artisan-rust text-white">Featured</Badge>
-                      </div>
-                      <div className="absolute top-4 right-4">
-                        <Button
-                          variant="secondary"
-                          size="icon"
-                          className="opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                          <Heart className="w-4 h-4" />
-                        </Button>
-                      </div>
-                      <div className="absolute bottom-4 left-4 right-4 text-white">
-                        <h3 className="text-2xl font-bold mb-2">{collection.name}</h3>
-                        <div className="flex items-center justify-between text-sm">
-                          <div className="flex items-center space-x-4">
-                            <span className="flex items-center">
-                              <Package className="w-4 h-4 mr-1" />
-                              {collection.products} items
-                            </span>
-                            <span className="flex items-center">
-                              <MapPin className="w-4 h-4 mr-1" />
-                              {collection.region}
-                            </span>
+                <a key={collection.id} href={`/collections/${collection.id}`}>
+                  <Card className="group cursor-pointer hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <CardContent className="p-0">
+                      <div className="relative aspect-[3/2] overflow-hidden">
+                        <img
+                          src={collection.image || "/placeholder.svg"}
+                          alt={collection.name}
+                          width={600}
+                          height={400}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 bg-artisan-amber/10"
+                          style={{ backgroundColor: '#FFF7ED' }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <div className="absolute top-4 left-4">
+                          <Badge className="bg-artisan-rust text-white">Featured</Badge>
+                        </div>
+                        <div className="absolute top-4 right-4">
+                          <Button
+                            variant="secondary"
+                            size="icon"
+                            className="opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={(e) => {
+                              e.preventDefault()
+                              e.stopPropagation()
+                              // Handle wishlist functionality
+                            }}
+                          >
+                            <Heart className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        <div className="absolute bottom-4 left-4 right-4 text-white">
+                          <h3 className="text-2xl font-bold mb-2">{collection.name}</h3>
+                          <div className="flex items-center justify-between text-sm">
+                            <div className="flex items-center space-x-4">
+                              <span className="flex items-center">
+                                <Package className="w-4 h-4 mr-1" />
+                                {collection.products} items
+                              </span>
+                              <span className="flex items-center">
+                                <MapPin className="w-4 h-4 mr-1" />
+                                {collection.region}
+                              </span>
+                            </div>
+                            <ArrowRight className="w-5 h-5" />
                           </div>
-                          <ArrowRight className="w-5 h-5" />
                         </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </a>
               ))}
             </div>
           )}
@@ -225,77 +229,93 @@ export default function CollectionsPage() {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {allCollections.map((collection: any) => (
-                <Card key={collection.id} className="group cursor-pointer hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-0">
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-t-lg">
-                      <img
-                        src={collection.image || "/placeholder.svg"}
-                        alt={collection.name}
-                        width={400}
-                        height={300}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 bg-artisan-amber/10"
-                        style={{ backgroundColor: '#FFF7ED' }}
-                      />
-                      {collection.featured && (
-                        <Badge className="absolute top-3 left-3 bg-artisan-rust text-white">Featured</Badge>
-                      )}
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        <Heart className="w-4 h-4" />
-                      </Button>
-                    </div>
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className="font-bold text-lg text-gray-900 line-clamp-1">{collection.name}</h3>
+                <a key={collection.id} href={`/collections/${collection.id}`}>
+                  <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300">
+                    <CardContent className="p-0">
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-t-lg">
+                        <img
+                          src={collection.image || "/placeholder.svg"}
+                          alt={collection.name}
+                          width={400}
+                          height={300}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 bg-artisan-amber/10"
+                          style={{ backgroundColor: '#FFF7ED' }}
+                        />
+                        {collection.featured && (
+                          <Badge className="absolute top-3 left-3 bg-artisan-rust text-white">Featured</Badge>
+                        )}
                         <Button
-                          variant="ghost"
+                          variant="secondary"
                           size="icon"
-                          className="opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
+                          onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            // Handle wishlist functionality
+                          }}
                         >
-                          <Eye className="w-4 h-4" />
+                          <Heart className="w-4 h-4" />
                         </Button>
                       </div>
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">{collection.description}</p>
-                      <div className="flex flex-wrap gap-1 mb-4">
-                        {(collection.tags || []).slice(0, 2).map((tag: string, index: number) => (
-                          <Badge key={index} variant="secondary" className="text-xs">
-                            {tag}
-                          </Badge>
-                        ))}
-                        {collection.tags && collection.tags.length > 2 && (
-                          <Badge variant="secondary" className="text-xs">
-                            +{collection.tags.length - 2}
-                          </Badge>
-                        )}
-                      </div>
-                      <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
-                        <div className="flex items-center space-x-3">
-                          <span className="flex items-center">
-                            <Package className="w-4 h-4 mr-1" />
-                            {collection.products}
-                          </span>
-                          <span className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-1" />
-                            {collection.region}
-                          </span>
+                      <div className="p-6">
+                        <div className="flex items-start justify-between mb-2">
+                          <h3 className="font-bold text-lg text-gray-900 line-clamp-1">{collection.name}</h3>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={(e) => {
+                              e.preventDefault()
+                              e.stopPropagation()
+                              // Handle preview functionality
+                            }}
+                          >
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                        </div>
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-2">{collection.description}</p>
+                        <div className="flex flex-wrap gap-1 mb-4">
+                          {(collection.tags || []).slice(0, 2).map((tag: string, index: number) => (
+                            <Badge key={index} variant="secondary" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))}
+                          {collection.tags && collection.tags.length > 2 && (
+                            <Badge variant="secondary" className="text-xs">
+                              +{collection.tags.length - 2}
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
+                          <div className="flex items-center space-x-3">
+                            <span className="flex items-center">
+                              <Package className="w-4 h-4 mr-1" />
+                              {collection.products}
+                            </span>
+                            <span className="flex items-center">
+                              <MapPin className="w-4 h-4 mr-1" />
+                              {collection.region || 'Global'}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm text-gray-500">{collection.artisans || 0} artisans</span>
+                          <Button
+                            size="sm"
+                            className="bg-artisan-rust hover:bg-artisan-rust-light opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={(e) => {
+                              e.preventDefault()
+                              window.location.href = `/collections/${collection.id}`
+                            }}
+                          >
+                            Explore
+                            <ArrowRight className="w-4 h-4 ml-1" />
+                          </Button>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500">{collection.artisans} artisans</span>
-                        <Button
-                          size="sm"
-                          className="bg-artisan-rust hover:bg-artisan-rust-light opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                          Explore
-                          <ArrowRight className="w-4 h-4 ml-1" />
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </a>
               ))}
             </div>
           )}

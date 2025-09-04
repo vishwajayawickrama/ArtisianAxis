@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog"
 import { Plus, Upload, X, Loader2, AlertCircle } from "lucide-react"
 import { useCreateProduct } from "@/hooks/api/admin/useCreateProducts"
-import useCollections from "@/hooks/api/admin/useCollections"
+import { useCollections } from "@/hooks/api/admin/useCollections"
 
 
 
