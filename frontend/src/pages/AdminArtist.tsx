@@ -8,7 +8,7 @@ export default function ArtistsPage() {
   const [selectedSpecialty, setSelectedSpecialty] = useState("all")
 
   const artists = [
-    {
+    { 
       id: 1,
       name: "Fatima Al-Zahra",
       email: "fatima@example.com",

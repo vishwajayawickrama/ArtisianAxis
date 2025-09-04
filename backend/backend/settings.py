@@ -25,6 +25,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'collectionsApp',
+    'products',
     'rest_framework',
     'storages',
     'corsheaders',
@@ -131,13 +132,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
-  
-
-
-
 
 AZURE_ACCOUNT_NAME = "artisianaxis"  
 AZURE_ACCOUNT_KEY = "EsXyPb0Ry3PavZRQFfbiA0N9WPtUfPrli+h/hor2L3aXElEtuARzm//wGNsSMLE4xIcBdJYKw70z+ASt6nVI+w==" 

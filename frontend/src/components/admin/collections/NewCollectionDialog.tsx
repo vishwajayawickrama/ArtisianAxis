@@ -11,6 +11,7 @@ export default function NewCollectionDialog() {
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
     const [collectionImage, setCollectionImage] = useState<string>("")
     const [selectedFile, setSelectedFile] = useState<File | null>(null)
+    const [featured, setFeatured] = useState(false)
     const createCollection = useCreateCollection()
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +26,7 @@ export default function NewCollectionDialog() {
     const resetForm = () => {
         setCollectionImage("")
         setSelectedFile(null)
+        setFeatured(false)
         const form = document.getElementById('collection-form') as HTMLFormElement
         if (form) {
             form.reset()
@@ -39,7 +41,7 @@ export default function NewCollectionDialog() {
         apiFormData.append('name', formData.get('collectionName') as string)
         apiFormData.append('description', formData.get('description') as string || '')
         apiFormData.append('products', formData.get('products') as string || '0')
-        
+        apiFormData.append('featured', featured ? 'true' : 'false')
         if (selectedFile) {
             apiFormData.append('image', selectedFile)
         }
@@ -85,6 +87,22 @@ export default function NewCollectionDialog() {
                                 placeholder="Enter collection name" 
                                 required
                             />
+                        </div>
+
+                        <div className="space-y-2 flex items-center">
+                            <Label htmlFor="featured" className="mr-2">Featured</Label>
+                            <button
+                                type="button"
+                                id="featured"
+                                aria-pressed={featured}
+                                onClick={() => setFeatured(f => !f)}
+                                className={`relative inline-flex h-6 w-12 items-center rounded-full transition-colors focus:outline-none ${featured ? 'bg-orange-700' : 'bg-gray-300'}`}
+                            >
+                                <span
+                                    className={`inline-block h-5 w-5 transform rounded-full bg-white transition-transform ${featured ? 'translate-x-6' : 'translate-x-1'}`}
+                                />
+                            </button>
+                            <span className="ml-2 text-sm">{featured ? 'Yes' : 'No'}</span>
                         </div>
 
                         <div className="space-y-2">

@@ -7,7 +7,8 @@ import os
 class Collection(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    products = models.IntegerField(default=True)
+    product_count = models.IntegerField(default=0)
+    featured = models.BooleanField(default=False)
     image = models.ImageField(upload_to="collections/", blank=True, null=True, default=None)
 
     def __str__(self):

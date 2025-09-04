@@ -6,6 +6,7 @@ class AdminSerivces extends APIService {
         super();
     }
 
+    // Collections related API calls
     async getCollections() {
         return this.get('/collections/', {})
     }
@@ -17,6 +18,20 @@ class AdminSerivces extends APIService {
     async deleteCollection(id : string) {
         return this.delete(`/collections/${id}`)
     }
+
+    // Products related API calls
+    async getProducts() {
+        return this.get('/products/', {})
+    }
+
+    async postProduct(product : FormData) {
+        return this.postFormWithFile('/products/', product)
+    }
+
+    async deleteProduct(id : string) {
+        return this.delete(`/products/${id}`)
+    }
+
 }
 
 

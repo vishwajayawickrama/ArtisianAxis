@@ -4,5 +4,5 @@ from .models import Collection
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        fields = ['id', 'name', 'description', 'products', 'image', 'image_url']
+        fields = ['id', 'name', 'description', 'products', 'image', 'image_url', 'featured']
         read_only_fields = ['image_url']

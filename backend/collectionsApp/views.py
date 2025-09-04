@@ -14,6 +14,7 @@ class CollectionList(APIView):
     def post(self, request):
         serializer = CollectionSerializer(data=request.data)
         if serializer.is_valid():
+            print(serializer.data)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
