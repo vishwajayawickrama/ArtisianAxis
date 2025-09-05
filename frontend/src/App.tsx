@@ -10,6 +10,9 @@ import Test from "./pages/Test";
 import './index.css'
 import Collections from "./pages/Collections";
 import CollectionProducts from "./pages/CollectionProducts";
+import Products from "./pages/Products";
+import Auctions from "./pages/Auctions";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -35,6 +38,9 @@ function App() {
         {/* Normal Routes */}
         <Route path="/collections" element={<Collections />} />
         <Route path="/collections/:id" element={<CollectionProducts />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/auctions" element={<Auctions />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </Router>
   )

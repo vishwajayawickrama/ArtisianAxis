@@ -3,8 +3,10 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Search, Filter, Package, MapPin, Calendar, ArrowRight, Heart, Eye, Loader2, AlertTriangle } from "lucide-react"
+import { Search, Filter, Package, MapPin, ArrowRight, Heart, Eye, Loader2, AlertTriangle } from "lucide-react"
 import { useCollections } from "@/hooks/api/admin/useCollections"
+import Navbar from "@/components/common/Navbar"
+import Footer from "@/components/common/Footer"
 
 export default function CollectionsPage() {
   const { data, isLoading, isError, error } = useCollections()
@@ -15,99 +17,14 @@ export default function CollectionsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
-      {/* Header - Same as home page */}
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <a href="/" className="flex items-center space-x-3">
-              <img src="/logo.png" alt="ArtisanAxis Logo" width={40} height={40} className="w-10 h-10" />
-              <span className="text-xl font-bold text-gray-900">ArtisanAxis</span>
-            </a>
-
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="/collections" className="text-artisan-rust hover:text-artisan-rust-light font-medium">
-                Collections
-              </a>
-              <a href="/artifacts" className="text-gray-700 hover:text-artisan-rust font-medium">
-                Artifacts
-              </a>
-              <a href="/textiles" className="text-gray-700 hover:text-artisan-rust font-medium">
-                Textiles
-              </a>
-              <a href="/crafts" className="text-gray-700 hover:text-artisan-rust font-medium">
-                Crafts
-              </a>
-              <a href="/about" className="text-gray-700 hover:text-artisan-rust font-medium">
-                About
-              </a>
-            </nav>
-
-            <div className="flex items-center space-x-4">
-              <div className="hidden sm:flex items-center bg-gray-100 rounded-full px-4 py-2">
-                <Search className="w-4 h-4 text-gray-500 mr-2" />
-                <Input
-                  placeholder="Search collections..."
-                  className="border-0 bg-transparent focus-visible:ring-0 text-sm"
-                />
-              </div>
-              <Button variant="ghost" size="icon">
-                <Heart className="w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4 py-4">
-        <nav className="flex items-center space-x-2 text-sm text-gray-600">
-          <a href="/" className="hover:text-artisan-rust">
-            Home
-          </a>
-          <span>/</span>
-          <span className="text-gray-900 font-medium">Collections</span>
-        </nav>
-      </div>
-
-      {/* Hero Section */}
-      <section className="py-16 lg:py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto">
-
-            <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-              Discover Cultural
-              <span className="text-artisan-rust"> Collections</span>
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed mb-8">
-              Explore our carefully curated collections of authentic cultural heritage goods, each telling a unique
-              story of tradition, craftsmanship, and cultural identity from artisans worldwide.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm text-gray-600">
-              <div className="flex items-center space-x-2">
-                <Package className="w-4 h-4 text-artisan-rust" />
-                <span>1,200+ Authentic Items</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <MapPin className="w-4 h-4 text-artisan-rust" />
-                <span>50+ Countries</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Calendar className="w-4 h-4 text-artisan-rust" />
-                <span>Updated Weekly</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Navbar */}
+      <Navbar currentPage="collections"/>
 
       {/* Featured Collections */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-left mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Featured Collections</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Our most popular and culturally significant collections, handpicked by our heritage experts
-            </p>
           </div>
           {isLoading ? (
             <div className="flex justify-center items-center py-12">
@@ -319,35 +236,11 @@ export default function CollectionsPage() {
               ))}
             </div>
           )}
-          {/* Load More */}
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg" className="bg-transparent">
-              Load More Collections
-            </Button>
-          </div>
         </div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-16 bg-gradient-to-r from-artisan-rust to-artisan-amber">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">Stay Updated</h2>
-            <p className="text-xl text-black mb-8">
-              Get notified when new collections are added and discover exclusive cultural treasures
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <Input
-                placeholder="Enter your email"
-                className="bg-white/90 border-white/40 text-artisan-rust placeholder:text-artisan-rust focus-visible:ring-white/60 shadow"
-              />
-              <Button className="bg-white text-artisan-rust hover:bg-gray-50 font-semibold shadow">
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

@@ -34,7 +34,7 @@ const artists = [
 
 export default function NewProductDialog() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [productImage, setProductImage] = useState<string>("")
+  const [, setProductImage] = useState<string>("")
   const [selectedImages, setSelectedImages] = useState<File | null>(null)
   const [previewImages, setPreviewImages] = useState<string[]>([])
   const [submitError, setSubmitError] = useState<string | null>(null)

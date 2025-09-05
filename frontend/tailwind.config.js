@@ -49,7 +49,15 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+			artisan: {
+          		rust: "rgb(122, 59, 48)",
+          		teal: "rgb(71, 127, 126)",
+          		amber: "rgb(196, 126, 68)",
+          		"rust-light": "rgb(142, 79, 68)",
+          		"teal-light": "rgb(91, 147, 146)",
+          		"amber-light": "rgb(216, 146, 88)",
+        },
   		}
   	}
   },

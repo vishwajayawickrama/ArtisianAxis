@@ -2,74 +2,32 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star, Heart, Shield, Truck, Award, Globe, Users } from "lucide-react";
-import { useEffect } from "react";
+import { Star, Heart, Shield, Award, Globe, Users, Loader2, AlertTriangle } from "lucide-react";
+import { useCollections } from "@/hooks/api/admin/useCollections";
+import useProducts from "@/hooks/api/admin/useProducts";
+import type { Collection } from "@/components/admin/collections/Collections";
+import type { Product } from "@/components/admin/products/Products";
+import Navbar from "@/components/common/Navbar";
+import Footer from "@/components/common/Footer";
 
 export default function HomePage() {
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    console.log(`Navigate to: ${href}`);
-  };
+  const { data: collections, isLoading: collectionsLoading, isError: collectionsError } = useCollections();
+  const { data: products, isLoading: productsLoading, isError: productsError } = useProducts();
 
-  // Load the chatbot script
-  useEffect(() => {
-    // Check if script is already loaded
-    if (document.querySelector('script[src="https://excellychat-apim.azure-api.net/chatbot/excelly-messenger.js"]')) {
-      return;
-    }
+  // Get featured collections (first 4 for categories section)
+  const featuredCollections = collections?.slice(0, 4) || [];
+  
+  // Get featured products (first 8 for products section)
+  const featuredProducts = products?.slice(0, 8) || [];
 
-    const script = document.createElement('script');
-    script.src = 'https://excellychat-apim.azure-api.net/chatbot/excelly-messenger.js';
-    script.async = true;
-    
-    // Add script to document head
-    document.head.appendChild(script);
+  // Calculate total items for stats
+  const totalItems = products?.length || 0;
 
-    // Cleanup function
-    return () => {
-      // Optional: Remove script on component unmount
-      const existingScript = document.querySelector('script[src="https://excellychat-apim.azure-api.net/chatbot/excelly-messenger.js"]');
-      if (existingScript) {
-        document.head.removeChild(existingScript);
-      }
-    };
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
-      {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <a href="/" onClick={(e) => handleLinkClick(e, '/')} className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br rounded-lg flex items-center justify-center">
-                <img src="logo.png" alt="" />
-              </div>
-              <span className="text-xl font-bold text-gray-900">ArtisanAxis</span>
-            </a>
-
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="/collections" onClick={(e) => handleLinkClick(e, '/collections')} className="text-gray-700 hover:text-amber-600 font-medium">
-                Collections
-              </a>
-              <a href="/artifacts" onClick={(e) => handleLinkClick(e, '/artifacts')} className="text-gray-700 hover:text-amber-600 font-medium">
-                Artifacts
-              </a>
-              <a href="/textiles" onClick={(e) => handleLinkClick(e, '/textiles')} className="text-gray-700 hover:text-amber-600 font-medium">
-                Textiles
-              </a>
-              <a href="/crafts" onClick={(e) => handleLinkClick(e, '/crafts')} className="text-gray-700 hover:text-amber-600 font-medium">
-                Crafts
-              </a>
-              <a href="/about" onClick={(e) => handleLinkClick(e, '/about')} className="text-gray-700 hover:text-amber-600 font-medium">
-                About
-              </a>
-            </nav>
-          </div>
-        </div>
-      </header>
+      {/* Navbar */}
+      <Navbar currentPage="home"/>
 
       {/* Hero Section */}
       <section className="relative py-20 lg:py-12">
@@ -90,9 +48,11 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-orange-700 hover:bg-orange-600 text-white">
-                  Explore Collections
-                </Button>
+                <a href="/collections">
+                  <Button size="lg" className="bg-orange-700 hover:bg-orange-600 text-white">
+                    Explore Collections
+                  </Button>
+                </a>
                 <Button
                   size="lg"
                   variant="outline"
@@ -124,7 +84,7 @@ export default function HomePage() {
                     <Award className="w-6 h-6 text-orange-700" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900">5000+ Items</p>
+                    <p className="font-semibold text-gray-900">{totalItems}+ Items</p>
                     <p className="text-sm text-gray-600">Curated Collection</p>
                   </div>
                 </div>
@@ -144,31 +104,52 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { name: "Traditional Textiles", count: "1,200+ items", color: "from-purple-400 to-pink-400" },
-              { name: "Handcrafted Pottery", count: "800+ items", color: "from-blue-400 to-teal-400" },
-              { name: "Cultural Artifacts", count: "600+ items", color: "from-green-400 to-emerald-400" },
-              { name: "Traditional Jewelry", count: "900+ items", color: "from-yellow-400 to-orange-400" },
-            ].map((category, index) => (
-              <Card key={index} className="group cursor-pointer hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-0">
-                  <div className="aspect-square overflow-hidden rounded-t-lg">
-                    <div className={`w-full h-full bg-gradient-to-br ${category.color} group-hover:scale-105 transition-transform duration-300 flex items-center justify-center`}>
-                      <div className="text-center text-white">
-                        <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                          <Award className="w-8 h-8" />
+            {collectionsLoading ? (
+              // Loading state
+              <div className="col-span-full flex justify-center items-center py-12">
+                <Loader2 className="animate-spin text-orange-700 h-10 w-10" />
+                <span className="ml-4 text-orange-700 font-semibold text-lg">Loading collections...</span>
+              </div>
+            ) : collectionsError ? (
+              // Error state
+              <div className="col-span-full flex flex-col items-center py-12">
+                <AlertTriangle className="text-red-500 h-10 w-10 mb-2" />
+                <span className="text-red-600 font-semibold text-lg">Error loading collections</span>
+                <span className="text-gray-500 text-sm mt-2">Please try again later.</span>
+              </div>
+            ) : (
+              featuredCollections.map((collection: Collection) => (
+                <a key={collection.id} href={`/collections/${collection.id}`}>
+                  <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300">
+                    <CardContent className="p-0">
+                      <div className="aspect-square overflow-hidden rounded-t-lg">
+                        <div className="relative w-full h-full group-hover:scale-105 transition-transform duration-300">
+                          <img
+                            src={collection.image || "/placeholder.svg"}
+                            alt={collection.name}
+                            className="w-full h-full object-cover"
+                            style={{ backgroundColor: '#FFF7ED' }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="text-center text-white">
+                              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Award className="w-8 h-8" />
+                              </div>
+                              <p className="font-semibold">{collection.name}</p>
+                            </div>
+                          </div>
                         </div>
-                        <p className="font-semibold">{category.name}</p>
                       </div>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-semibold text-gray-900 mb-2">{category.name}</h3>
-                    <p className="text-sm text-gray-600">{category.count}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                      <div className="p-6">
+                        <h3 className="font-semibold text-gray-900 mb-2">{collection.name}</h3>
+                        <p className="text-sm text-gray-600">{collection.products || 0}+ items</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </a>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -181,110 +162,72 @@ export default function HomePage() {
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Featured Heritage Items</h2>
               <p className="text-xl text-gray-600">Handpicked treasures from our curated collection</p>
             </div>
-            <Button variant="outline" className="hidden sm:flex bg-transparent">
-              View All Products
-            </Button>
+            <a href="/collections">
+              <Button variant="outline" className="hidden sm:flex bg-transparent">
+                View All Products
+              </Button>
+            </a>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {[
-              {
-                name: "Handwoven Kilim Rug",
-                price: "$299",
-                originalPrice: "$399",
-                rating: 4.8,
-                badge: "Bestseller",
-                color: "from-red-400 to-pink-400",
-              },
-              {
-                name: "Ceramic Vase - Ming Style",
-                price: "$189",
-                rating: 4.9,
-                badge: "Authentic",
-                color: "from-blue-400 to-indigo-400",
-              },
-              {
-                name: "Traditional Brass Lamp",
-                price: "$149",
-                originalPrice: "$199",
-                rating: 4.7,
-                color: "from-yellow-400 to-orange-400",
-              },
-              {
-                name: "Embroidered Silk Scarf",
-                price: "$89",
-                rating: 4.6,
-                badge: "New",
-                color: "from-purple-400 to-pink-400",
-              },
-              {
-                name: "Wooden Carved Mask",
-                price: "$129",
-                rating: 4.8,
-                color: "from-green-400 to-teal-400",
-              },
-              {
-                name: "Silver Filigree Jewelry",
-                price: "$249",
-                rating: 4.9,
-                badge: "Limited",
-                color: "from-gray-400 to-slate-400",
-              },
-              {
-                name: "Handmade Tapestry",
-                price: "$199",
-                originalPrice: "$279",
-                rating: 4.7,
-                color: "from-emerald-400 to-teal-400",
-              },
-              { 
-                name: "Cultural Art Print", 
-                price: "$59", 
-                rating: 4.5, 
-                color: "from-amber-400 to-orange-400" 
-              },
-            ].map((product, index) => (
-              <Card key={index} className="group cursor-pointer hover:shadow-lg transition-all duration-300">
-                <CardContent className="p-0">
-                  <div className="relative aspect-square overflow-hidden rounded-t-lg">
-                    <div className={`w-full h-full bg-gradient-to-br ${product.color} group-hover:scale-105 transition-transform duration-300 flex items-center justify-center`}>
-                      <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center">
-                        <Award className="w-10 h-10 text-white" />
-                      </div>
-                    </div>
-                    {product.badge && (
-                      <Badge className="absolute top-3 left-3 bg-orange-700 text-white">{product.badge}</Badge>
-                    )}
-                    <Button
-                      size="icon"
-                      variant="secondary"
-                      className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      <Heart className="w-4 h-4" />
-                    </Button>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
-                    <div className="flex items-center mb-2">
-                      <div className="flex items-center">
-                        <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                        <span className="text-sm text-gray-600 ml-1">{product.rating}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <span className="font-bold text-gray-900">{product.price}</span>
-                        {product.originalPrice && (
-                          <span className="text-sm text-gray-500 line-through">{product.originalPrice}</span>
-                        )}
-                      </div>
-                      <Button size="sm" className="bg-orange-700 hover:bg-orange-600">
-                        Add to Cart
+            {productsLoading ? (
+              // Loading state
+              <div className="col-span-full flex justify-center items-center py-12">
+                <Loader2 className="animate-spin text-orange-700 h-10 w-10" />
+                <span className="ml-4 text-orange-700 font-semibold text-lg">Loading products...</span>
+              </div>
+            ) : productsError ? (
+              // Error state
+              <div className="col-span-full flex flex-col items-center py-12">
+                <AlertTriangle className="text-red-500 h-10 w-10 mb-2" />
+                <span className="text-red-600 font-semibold text-lg">Error loading products</span>
+                <span className="text-gray-500 text-sm mt-2">Please try again later.</span>
+              </div>
+            ) : (
+              featuredProducts.map((product: Product) => (
+                <Card key={product.id} className="group cursor-pointer hover:shadow-lg transition-all duration-300">
+                  <CardContent className="p-0">
+                    <div className="relative aspect-square overflow-hidden rounded-t-lg">
+                      <img
+                        src={product.image || "/placeholder.svg"}
+                        alt={product.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        style={{ backgroundColor: '#FFF7ED' }}
+                      />
+                      {product.badge && (
+                        <Badge className="absolute top-3 left-3 bg-orange-700 text-white">{product.badge}</Badge>
+                      )}
+                      <Button
+                        size="icon"
+                        variant="secondary"
+                        className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <Heart className="w-4 h-4" />
                       </Button>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                    <div className="p-4">
+                      <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
+                      <div className="flex items-center mb-2">
+                        <div className="flex items-center">
+                          <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                          <span className="text-sm text-gray-600 ml-1">{product.rating}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <span className="font-bold text-gray-900">${product.price}</span>
+                          {product.original_price && (
+                            <span className="text-sm text-gray-500 line-through">${product.original_price}</span>
+                          )}
+                        </div>
+                        <Button size="sm" className="bg-orange-700 hover:bg-orange-600">
+                          Add to Cart
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -381,128 +324,7 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">A</span>
-                </div>
-                <span className="text-xl font-bold">ArtisanAxis</span>
-              </div>
-              <p className="text-gray-400 leading-relaxed">
-                Connecting you with authentic cultural heritage goods from artisans worldwide.
-              </p>
-              <div className="flex items-center space-x-4 text-sm text-gray-400">
-                <div className="flex items-center space-x-2">
-                  <Truck className="w-4 h-4" />
-                  <span>Free Shipping</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Shield className="w-4 h-4" />
-                  <span>Secure Payment</span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Collections</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <a href="/textiles" onClick={(e) => handleLinkClick(e, '/textiles')} className="hover:text-white transition-colors">
-                    Traditional Textiles
-                  </a>
-                </li>
-                <li>
-                  <a href="/pottery" onClick={(e) => handleLinkClick(e, '/pottery')} className="hover:text-white transition-colors">
-                    Handcrafted Pottery
-                  </a>
-                </li>
-                <li>
-                  <a href="/artifacts" onClick={(e) => handleLinkClick(e, '/artifacts')} className="hover:text-white transition-colors">
-                    Cultural Artifacts
-                  </a>
-                </li>
-                <li>
-                  <a href="/jewelry" onClick={(e) => handleLinkClick(e, '/jewelry')} className="hover:text-white transition-colors">
-                    Traditional Jewelry
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Support</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <a href="/help" onClick={(e) => handleLinkClick(e, '/help')} className="hover:text-white transition-colors">
-                    Help Center
-                  </a>
-                </li>
-                <li>
-                  <a href="/shipping" onClick={(e) => handleLinkClick(e, '/shipping')} className="hover:text-white transition-colors">
-                    Shipping Info
-                  </a>
-                </li>
-                <li>
-                  <a href="/returns" onClick={(e) => handleLinkClick(e, '/returns')} className="hover:text-white transition-colors">
-                    Returns
-                  </a>
-                </li>
-                <li>
-                  <a href="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="hover:text-white transition-colors">
-                    Contact Us
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Company</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <a href="/about" onClick={(e) => handleLinkClick(e, '/about')} className="hover:text-white transition-colors">
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a href="/artisans" onClick={(e) => handleLinkClick(e, '/artisans')} className="hover:text-white transition-colors">
-                    Our Artisans
-                  </a>
-                </li>
-                <li>
-                  <a href="/sustainability" onClick={(e) => handleLinkClick(e, '/sustainability')} className="hover:text-white transition-colors">
-                    Sustainability
-                  </a>
-                </li>
-                <li>
-                  <a href="/careers" onClick={(e) => handleLinkClick(e, '/careers')} className="hover:text-white transition-colors">
-                    Careers
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">
-              © {new Date().getFullYear()} ArtisanAxis. All rights reserved.
-            </p>
-            <div className="flex space-x-6 mt-4 sm:mt-0">
-              <a href="/privacy" onClick={(e) => handleLinkClick(e, '/privacy')} className="text-gray-400 hover:text-white text-sm transition-colors">
-                Privacy Policy
-              </a>
-              <a href="/terms" onClick={(e) => handleLinkClick(e, '/terms')} className="text-gray-400 hover:text-white text-sm transition-colors">
-                Terms of Service
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
-
-      {/* Chatbot */}
-      <div 
-        dangerouslySetInnerHTML={{
-          __html: '<excelly-messenger personaId="3981c678-2d70-4a4e-b75a-6fcc84487682"></excelly-messenger>'
-        }}
-      />
+      <Footer />
     </div>
   );
 }

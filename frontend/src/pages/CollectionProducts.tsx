@@ -6,7 +6,22 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useParams } from "react-router-dom"
 import { useCollection, useCollectionProducts } from "@/hooks/api/admin/useCollections"
 import type { Product } from "@/components/admin/products/Products"
-import { Search, Heart, Star, ShoppingCart, Grid3X3, List, SlidersHorizontal, MapPin, Package, Users, ArrowLeft, Share2, Loader2, AlertCircle, } from "lucide-react"
+import Navbar from "@/components/common/Navbar"
+import {
+  Search,
+  Heart,
+  Star,
+  Grid3X3,
+  List,
+  SlidersHorizontal,
+  MapPin,
+  Package,
+  Users,
+  ArrowLeft,
+  Share2,
+  Loader2,
+  AlertCircle,
+} from "lucide-react"
 
 export default function CollectionPage() {
   const params = useParams<{ id: string }>()
@@ -57,59 +72,8 @@ export default function CollectionPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
-      {/* Header - Same as other pages */}
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <a href="/" className="flex items-center space-x-3">
-              <img src="/logo.png" alt="ArtisanAxis Logo" width={40} height={40} className="w-10 h-10" />
-              <span className="text-xl font-bold text-gray-900">ArtisanAxis</span>
-            </a>
-
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="/collections" className="text-artisan-rust hover:text-artisan-rust-light font-medium">
-                Collections
-              </a>
-              <a href="/artifacts" className="text-gray-700 hover:text-artisan-rust font-medium">
-                Artifacts
-              </a>
-              <a href="/textiles" className="text-gray-700 hover:text-artisan-rust font-medium">
-                Textiles
-              </a>
-              <a href="/crafts" className="text-gray-700 hover:text-artisan-rust font-medium">
-                Crafts
-              </a>
-              <a href="/about" className="text-gray-700 hover:text-artisan-rust font-medium">
-                About
-              </a>
-            </nav>
-
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="icon">
-                <Heart className="w-5 h-5" />
-              </Button>
-              <Button variant="ghost" size="icon">
-                <ShoppingCart className="w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Breadcrumbs */}
-      <div className="container mx-auto px-4 py-4">
-        <nav className="flex items-center space-x-2 text-sm text-gray-600">
-          <a href="/" className="hover:text-artisan-rust">
-            Home
-          </a>
-          <span>/</span>
-          <a href="/collections" className="hover:text-artisan-rust">
-            Collections
-          </a>
-          <span>/</span>
-          <span className="text-gray-900 font-medium">{collection.name}</span>
-        </nav>
-      </div>
+      {/* Navbar */}
+      <Navbar currentPage="collections"/>
 
       {/* Collection Hero */}
       <section className="py-12 lg:py-20">
@@ -287,13 +251,6 @@ export default function CollectionPage() {
                 </CardContent>
               </Card>
             ))}
-          </div>
-
-          {/* Load More */}
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg" className="bg-transparent">
-              Load More Products
-            </Button>
           </div>
         </div>
       </section>
