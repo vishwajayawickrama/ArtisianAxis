@@ -6,7 +6,7 @@ class BaseAPIService {
   apiClient: any;
 
   constructor() {
-    this.baseURL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/';
+    this.baseURL = import.meta.env.VITE_API_URL;
     this.apiClient = axios.create({
       baseURL: this.baseURL,
       timeout: 10000, // Increased timeout
