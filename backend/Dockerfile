@@ -1,32 +1,34 @@
-# Multi-stage build for optimization
-FROM node:18-alpine AS builder
+# Use Python 3.11 slim image
+FROM python:3.11-slim
 
-# Set working directory
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set work directory
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        postgresql-client \
+        gcc \
+        python3-dev \
+        musl-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install dependencies
-RUN npm ci 
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy source code
+# Copy project
 COPY . .
 
-# Build the application
-RUN npm run build
-
-# Production stage
-FROM nginx:alpine
-
-# Copy built files from builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
+# Collect static files
+RUN python manage.py collectstatic --noinput
 
 # Expose port
-EXPOSE 80
+EXPOSE 8000
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Run gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "backend.wsgi:application"]

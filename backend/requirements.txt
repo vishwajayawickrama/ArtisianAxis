@@ -172,3 +172,5 @@ whatthepatch==1.0.7
 widgetsnbextension==4.0.13
 xgboost==3.0.0
 yapf==0.43.0
+gunicorn==21.2.0
+psycopg2-binary==2.9.9
