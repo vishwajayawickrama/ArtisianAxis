@@ -126,6 +126,7 @@ jobs:
           networks:
             artisianaxis-network:
               driver: bridge
+              enable_ipv6: true
           EOF
           
           # Pull latest images
