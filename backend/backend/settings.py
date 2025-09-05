@@ -70,7 +70,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",        # For your local React/Vue/Angular dev server
     "http://127.0.0.1:3000",        # Also common for local dev
-    "https://yourfrontend.com",     # Your production frontend domain
+    "https://artisianaxis.vishwajayawickrama.me",     # Your production frontend domain
     "https://sub.yourfrontend.com", # If you have subdomains
 ]
 CORS_ALLOW_ALL_ORIGINS = True
