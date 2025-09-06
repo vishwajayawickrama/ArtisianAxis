@@ -6,7 +6,7 @@ class BaseAPIService {
   apiClient: any;
 
   constructor() {
-    this.baseURL = "https://localhost:8000/api";
+    this.baseURL = "https://artisianaxis.vishwajayawickrama.me/api";
     this.apiClient = axios.create({
       baseURL: this.baseURL,
       timeout: 10000, // Increased timeout
