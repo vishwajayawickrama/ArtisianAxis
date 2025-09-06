@@ -116,7 +116,7 @@ jobs:
               environment:
                 - VITE_API_URL=http://artisianaxis.vishwajayawickrama.me/api
               ports:
-                - "3000:80"
+                - "3000:80" # docker internal port is 80 and 3000 is exposed port in server
               depends_on:
                 - backend
               restart: unless-stopped
