@@ -1,4 +1,3 @@
-
 from .models import Auction
 from .models import Bidding
 from rest_framework import serializers
