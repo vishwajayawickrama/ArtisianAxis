@@ -5,8 +5,8 @@ class BaseAPIService {
   baseURL: string;
   apiClient: any;
 
-  constructor() {
-    this.baseURL = "https://artisianaxis.vishwajayawickrama.me/api";
+  constructor() {;
+    this.baseURL = import.meta.env.VITE_API_URL
     this.apiClient = axios.create({
       baseURL: this.baseURL,
       timeout: 10000, // Increased timeout
