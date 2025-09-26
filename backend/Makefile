@@ -10,5 +10,8 @@ migrate:
 startapp:
 	$(PYTHON) manage.py startapp $(name)
 
-setup:
-	$(PYTHON) -m venv venv && . venv/bin/activate && pip install -r requirements.txt
+setup-new:
+	$(PYTHON) -m venv venv
+
+setup-install:
+	. venv/bin/activate && pip install -r requirements.txt
