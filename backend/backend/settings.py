@@ -28,7 +28,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'auctions'
+    'auctions',
     'collectionsApp',
     'products',
     'rest_framework',
