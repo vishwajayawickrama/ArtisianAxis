@@ -4,14 +4,15 @@ from django.db.models import F
 from .serializers import AuctionSerializer
 from .serializers import BiddingSerializer
 from .models import Auction
+from .models import Bidding
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import logging
 from django.utils import timezone
+from typing import cast
 
 logger = logging.getLogger(__name__)
 
-# Create your views here.
 
 class AuctionView(APIView):
     def get(self, request):
@@ -28,7 +29,7 @@ class AuctionView(APIView):
 class BiddingView(APIView):
     def get(self, request, auction_id):
         auction = Auction.objects.get(id=auction_id)
-        bids = auction.bids.all()
+        bids = Bidding.objects.filter(auction=auction).order_by('-bid_amount').first()
         serializer = BiddingSerializer(bids, many=True)
         return Response(serializer.data)
 
@@ -39,9 +40,9 @@ class BiddingView(APIView):
             serializer = BiddingSerializer(data=request.data)
             if not serializer.is_valid():
                 return Response(serializer.errors, status=400)
-            
-            bidding_value = serializer.validated_data['bid_amount']
-            
+
+            bidding_value = cast(dict, serializer.validated_data)['bid_amount']
+
             if hasattr(auction, 'end_time') and auction.end_time and auction.end_time < timezone.now():
                 return Response({"error": "Auction has ended."}, status=400)
             
